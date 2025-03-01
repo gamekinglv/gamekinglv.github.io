@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>寻找静止的Emoji</title>
+    <style>
+        #gameArea {
+            width: 100vw;
+            height: 90vh;
+            position: relative;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 2em;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .emoji:hover {
+            transform: scale(1.2);
+        }
+        #controls {
+            padding: 10px;
+            background: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <input type="number" id="count" min="5" max="100" value="20">
+        <button onclick="startGame()">开始游戏</button>
+        <span id="message"></span>
+    </div>
+    <div id="gameArea"></div>
+
+    <script>
+        let staticEmoji = null;
+        let animations = [];
+
+        function startGame() {
+            // 清除现有元素
+            gameArea.innerHTML  = '';
+            animations.forEach(cancelAnimationFrame); 
+            animations = [];
+            
+            // 获取难度设置
+            const count = Math.min(100,  Math.max(5,  parseInt(document.getElementById('count').value)  || 20));
+            document.getElementById('message').textContent  = `正在生成${count}个Emoji...`;
+
+            // 生成Emoji
+            setTimeout(() => {
+                const emojis = ['😀','😎','🐶','🐱','🍎','🚗','🌞','🎁','⚽','🍕','🎸','👑','114514','1919810'];
+                const staticIndex = Math.floor(Math.random()  * count);
+                
+                for(let i=0; i<count; i++) {
+                    const emoji = document.createElement('div'); 
+                    emoji.className  = 'emoji';
+                    emoji.textContent  = emojis[Math.floor(Math.random() * emojis.length)]; 
+                    
+                    // 随机初始位置
+                    const startX = Math.random()  * (window.innerWidth  - 50);
+                    const startY = Math.random()  * (window.innerHeight  - 100);
+                    Object.assign(emoji.style,  {
+                        left: startX + 'px',
+                        top: startY + 'px'
+                    });
+
+                    // 设置静止的Emoji
+                    if(i === staticIndex) {
+                        staticEmoji = emoji;
+                        emoji.dataset.static  = true;
+                    } else {
+                        // 设置随机运动
+                        animateEmoji(emoji);
+                    }
+
+                    emoji.onclick  = handleClick;
+                    gameArea.appendChild(emoji); 
+                }
+                document.getElementById('message').textContent  = '';
+            }, 100);
+        }
+
+        function animateEmoji(emoji) {
+            let dx = (Math.random()  - 0.5) * 4;
+            let dy = (Math.random()  - 0.5) * 4;
+            
+            function update() {
+                const rect = emoji.getBoundingClientRect(); 
+                if(rect.left  <= 0 || rect.right  >= window.innerWidth)  dx = -dx;
+                if(rect.top  <= 0 || rect.bottom  >= window.innerHeight)  dy = -dy;
+                
+                emoji.style.left  = (parseFloat(emoji.style.left)  + dx) + 'px';
+                emoji.style.top  = (parseFloat(emoji.style.top)  + dy) + 'px';
+                animations.push(requestAnimationFrame(update)); 
+            }
+            update();
+        }
+
+        function handleClick(e) {
+            if(e.target  === staticEmoji) {
+                document.getElementById('message').textContent  = '🎉 恭喜你找到了！';
+                animations.forEach(cancelAnimationFrame); 
+                staticEmoji.style.transform  = 'scale(2)';
+            } else {
+                e.target.style.opacity  = '0.5';
+                e.target.style.pointerEvents  = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
