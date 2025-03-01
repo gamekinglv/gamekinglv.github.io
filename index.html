@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人博客</title>
+    <style>
+        :root {
+            --primary-color: #9ACD32;  /* 黄绿色 */
+            --secondary-color: #556B2F;  /* 深黄绿 */
+            --accent-color: #FFD700;  /* 点缀金色 */
+            --bg-gradient: linear-gradient(135deg, #F0FFF0 0%, #FAFAD2 100%);
+        }
+
+        body {
+            background: var(--bg-gradient);
+            font-family: 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 动态头部设计 */
+        .header {
+            background: rgba(154, 205, 50, 0.9);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -10%;
+            width: 120%;
+            height: 100px;
+            background: var(--primary-color);
+            transform: rotate(-3deg);
+            z-index: -1;
+        }
+
+        /* 悬浮导航特效 */
+        .nav-link {
+            color: #2F4F4F;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* 卡片式文章布局 */
+        .article-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(154, 205, 50, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(154, 205, 50, 0.2);
+        }
+
+        /* 动态加载特效 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-entry {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        /* 悬浮按钮特效 */
+        .floating-btn {
+            background: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(154, 205, 50, 0.3);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .floating-btn:hover {
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 8px 25px rgba(154, 205, 50, 0.5);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header::after {
+                transform: rotate(-5deg);
+                bottom: -30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header animate-entry">
+        <h1 style="color: #2F4F4F;">🍃 2024-707</h1>
+        <nav class="nav">
+            <a href="#" class="nav-link">首页没做</a>
+            <a href="#" class="nav-link">归档没做</a>
+            <a href="#" class="nav-link">关于没做</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <article class="article-card animate-entry" style="animation-delay: 0.2s;">
+            <h2>2025/3/1</h2>
+            <p>三月的风裹挟着泥土的芬芳，在黄绿交织的田野间...我写下这个网页，扣1复活电系委员</p>
+            <p> </p>
+            <p>2025/3/1 -22</p>
+        </article>
+        
+        <article class="article-card animate-entry" style="animation-delay: 0.4s;">
+            <h2>关于作者</h2>
+            <p>是上古时代的信息课代表！！！游戏王！！！</p>
+            <p> </p>
+            <p>2025/3/1 -22</p>
+        </article>
+    </main>
+
+    <button class="floating-btn">📝 投稿文章没做</button>
+
+    <script>
+        // 滚动动画控制器
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry  => {
+                if (entry.isIntersecting)  {
+                    entry.target.style.opacity  = 1;
+                    entry.target.style.transform  = 'translateY(0)';
+                }
+            });
+        });
+
+        // 为所有需要动态加载的元素添加观察
+        document.querySelectorAll('.animate-entry').forEach((el)  => {
+            observer.observe(el); 
+        });
+
+        // 悬浮按钮交互
+        document.querySelector('.floating-btn').addEventListener('click',  () => {
+            const btn = document.querySelector('.floating-btn'); 
+            btn.style.transform  = 'scale(0.9) rotate(-5deg)';
+            setTimeout(() => {
+                btn.style.transform  = 'scale(1) rotate(0deg)';
+            }, 300);
+        });
+    </script>
+</body>
+</html>
