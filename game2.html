@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>横版射箭游戏</title>
+    <style>
+        canvas {
+            border: 2px solid #333;
+            background: linear-gradient(#87CEEB, #E0F6FF);
+            display: block;
+            margin: 20px auto;
+        }
+        body {
+            text-align: center;
+            background: #2c3e50;
+            margin: 0;
+            overflow: hidden;
+        }
+        #score {
+            color: white;
+            font-size: 24px;
+            position: fixed;
+            left: 20px;
+            top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="score">得分: 0</div>
+    <canvas id="gameCanvas" width="800" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas'); 
+        const ctx = canvas.getContext('2d'); 
+        let score = 0;
+        
+        // 游戏对象
+        const player = {
+            x: 50,
+            y: 200,
+            speed: 5,
+            width: 30,
+            height: 50
+        };
+
+        let arrows = [];
+        let enemies = [];
+        let gameOver = false;
+
+        // 控制状态
+        const keys = {
+            ArrowUp: false,
+            ArrowDown: false
+        };
+
+        // 事件监听
+        document.addEventListener('keydown',  (e) => {
+            if (e.code  in keys) keys[e.code] = true;
+            if (e.code  === 'Space') shoot();
+        });
+
+        document.addEventListener('keyup',  (e) => {
+            if (e.code  in keys) keys[e.code] = false;
+        });
+
+        // 射击功能
+        function shoot() {
+            arrows.push({ 
+                x: player.x + player.width, 
+                y: player.y + player.height/2, 
+                speed: 10,
+                width: 20,
+                height: 5
+            });
+        }
+
+        // 生成敌人
+        function spawnEnemy() {
+            enemies.push({ 
+                x: canvas.width, 
+                y: Math.random()  * (canvas.height  - 40),
+                speed: 3,
+                width: 40,
+                height: 40
+            });
+        }
+
+        // 游戏循环
+        function gameLoop() {
+            if (gameOver) return;
+
+            // 更新状态
+            update();
+            // 清空画布
+            ctx.clearRect(0,  0, canvas.width,  canvas.height); 
+            // 绘制对象
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function update() {
+            // 玩家移动
+            if (keys.ArrowUp) player.y = Math.max(0,  player.y - player.speed); 
+            if (keys.ArrowDown) player.y = Math.min(canvas.height  - player.height,  player.y + player.speed); 
+
+            // 箭矢移动
+            arrows = arrows.filter(arrow  => {
+                arrow.x += arrow.speed; 
+                return arrow.x < canvas.width; 
+            });
+
+            // 敌人移动
+            enemies = enemies.filter(enemy  => {
+                enemy.x -= enemy.speed; 
+                
+                // 碰撞检测
+                if (enemy.x < 0) gameOver = true;
+                if (checkCollision(enemy, player)) gameOver = true;
+                
+                // 箭矢碰撞
+                return !arrows.some(arrow  => checkCollision(arrow, enemy));
+            });
+
+            // 生成敌人
+            if (Math.random()  < 0.02) spawnEnemy();
+            score = enemies.filter(e  => e.x < 0).length;
+            document.getElementById('score').textContent  = `得分: ${score}`;
+        }
+
+        function draw() {
+            // 绘制玩家
+            ctx.fillStyle  = '#4CAF50';
+            ctx.fillRect(player.x,  player.y, player.width,  player.height); 
+
+            // 绘制箭矢
+            ctx.fillStyle  = '#f44336';
+            arrows.forEach(arrow  => {
+                ctx.fillRect(arrow.x,  arrow.y, arrow.width,  arrow.height); 
+            });
+
+            // 绘制敌人
+            ctx.fillStyle  = '#2196F3';
+            enemies.forEach(enemy  => {
+                ctx.beginPath(); 
+                ctx.arc(enemy.x  + 20, enemy.y + 20, 20, 0, Math.PI*2);
+                ctx.fill(); 
+            });
+
+            // 游戏结束显示
+            if (gameOver) {
+                ctx.fillStyle  = 'red';
+                ctx.font  = '48px Arial';
+                ctx.fillText(' 游戏结束！', canvas.width/2  - 100, canvas.height/2); 
+                ctx.font  = '24px Arial';
+                ctx.fillText(' 按 F5 重新开始', canvas.width/2  - 90, canvas.height/2  + 40);
+            }
+        }
+
+        function checkCollision(a, b) {
+            return a.x < b.x + b.width  &&
+                   a.x + a.width  > b.x &&
+                   a.y < b.y + b.height  &&
+                   a.y + a.height  > b.y;
+        }
+
+        // 启动游戏
+        gameLoop();
+    </script>
+</body>
+</html>
