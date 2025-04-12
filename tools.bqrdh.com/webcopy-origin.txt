@@ -1,0 +1,48 @@
+Uri: https://cdn.bootcdn.net/ajax/libs/three.js/r95/three.min.js
+File Name: C:\Downloaded Web Sites\tools.bqrdh.com\ajax\libs\three.js\r95\three.min.js
+Content Type: text/javascript
+
+Uri: https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css
+File Name: C:\Downloaded Web Sites\tools.bqrdh.com\ajax\libs\twitter-bootstrap\3.3.6\css\bootstrap.min.css
+Content Type: text/css
+
+Uri: https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.6/fonts/glyphicons-halflings-regular.eot
+File Name: C:\Downloaded Web Sites\tools.bqrdh.com\ajax\libs\twitter-bootstrap\3.3.6\fonts\glyphicons-halflings-regular.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.6/fonts/glyphicons-halflings-regular.eot?
+File Name: C:\Downloaded Web Sites\tools.bqrdh.com\ajax\libs\twitter-bootstrap\3.3.6\fonts\glyphicons-halflings-regular-1.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.6/fonts/glyphicons-halflings-regular.svg
+File Name: C:\Downloaded Web Sites\tools.bqrdh.com\ajax\libs\twitter-bootstrap\3.3.6\fonts\glyphicons-halflings-regular.svg
+Content Type: image/svg+xml
+
+Uri: https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.6/fonts/glyphicons-halflings-regular.ttf
+File Name: C:\Downloaded Web Sites\tools.bqrdh.com\ajax\libs\twitter-bootstrap\3.3.6\fonts\glyphicons-halflings-regular.ttf
+Content Type: application/octet-stream
+
+Uri: https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.6/fonts/glyphicons-halflings-regular.woff
+File Name: C:\Downloaded Web Sites\tools.bqrdh.com\ajax\libs\twitter-bootstrap\3.3.6\fonts\glyphicons-halflings-regular.woff
+Content Type: font/woff
+
+Uri: https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.6/fonts/glyphicons-halflings-regular.woff2
+File Name: C:\Downloaded Web Sites\tools.bqrdh.com\ajax\libs\twitter-bootstrap\3.3.6\fonts\glyphicons-halflings-regular.woff2
+Content Type: font/woff2
+
+Uri: https://tools.bqrdh.com/rubiks-cube/
+File Name: C:\Downloaded Web Sites\tools.bqrdh.com\rubiks-cube\index.htm
+Content Type: text/html
+
+Uri: https://tools.bqrdh.com/rubiks-cube/css/style.css
+File Name: C:\Downloaded Web Sites\tools.bqrdh.com\rubiks-cube\css\style.css
+Content Type: text/css
+
+Uri: https://tools.bqrdh.com/rubiks-cube/favicon.ico
+File Name: C:\Downloaded Web Sites\tools.bqrdh.com\rubiks-cube\favicon.ico
+Content Type: image/x-icon
+
+Uri: https://tools.bqrdh.com/rubiks-cube/js/index.js
+File Name: C:\Downloaded Web Sites\tools.bqrdh.com\rubiks-cube\js\index.js
+Content Type: application/javascript
+
