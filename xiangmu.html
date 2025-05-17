@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽题</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #333;
+        }
+ 
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+ 
+        .question-box {
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+            transition: all 0.3s ease;
+            font-size: 1.3em;
+            line-height: 1.6;
+        }
+ 
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+ 
+        .btn:active {
+            transform: translateY(0);
+        }
+ 
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+ 
+        .btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+ 
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+ 
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+ 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+ 
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+ 
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+ 
+        .date-time {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container floating">
+        <h1>抽题</h1>
+        
+        <div class="question-box" id="question">
+            点击下方按钮开始抽取题目 
+        </div>
+        
+        <button class="btn" onclick="randomQuestion()">抽取题目</button>
+        
+        <div class="date-time" id="datetime"></div>
+    </div>
+ 
+    <script>
+        const questions = [
+            "《竹里馆》中'独坐幽篁里'的下一句是：____。",
+            "《春夜洛城闻笛》中触发诗人思乡之情的诗句是：____。",
+            "《逢入京使》中'凭君传语报平安'的前一句是：____。",
+            "《晚春》中'百般红紫斗芳菲'的上一句是：____。",
+            "《泊秦淮》中讽刺统治者醉生梦死的诗句是：____。",
+            "《贾生》中'不问苍生问鬼神'的上一句是：____。",
+            "《过松源晨炊漆公店》中蕴含人生哲理的诗句是：____。",
+            "《约客》中描写江南梅雨景象的诗句是：____。",
+            "《木兰诗》中表现战争残酷的句子是：，。",
+            "《竹里馆》中'明月来相照'的上一句是：____。",
+            "《春夜洛城闻笛》中'散入春风满洛城'的上一句是：____。",
+            "《逢入京使》中表现思乡泪流的诗句是：，。",
+            "《晚春》中'杨花榆荚无才思'的下一句是：____。",
+            "《泊秦淮》中描写秦淮河夜景的诗句是：，。",
+            "《贾生》中表现汉文帝求贤的诗句是：，。",
+            "《过松源晨炊漆公店》中'赚得行人错喜欢'的下一句是：____。",
+            "《约客》中表现诗人等待心境的诗句是：，。",
+            "《木兰诗》中表现木兰从军原因的诗句是：，。",
+            "《竹里馆》中表现诗人高雅情趣的诗句是：，。",
+            "《春夜洛城闻笛》中'何人不起故园情'的上一句是：____。",
+            "《逢入京使》中表现路途遥远的诗句是：____。",
+            "《晚春》中'草树知春不久归'的下一句是：____。",
+            "《泊秦淮》中'商女不知亡国恨'的下一句是：____。",
+            "《贾生》中表现贾谊才华的诗句是：____。",
+            "《过松源晨炊漆公店》中'莫言下岭便无难'的下一句是：____。",
+            "《约客》中'闲敲棋子落灯花'的上一句是：____。",
+            "《木兰诗》中表现木兰战功显赫的诗句是：，。",
+            "《竹里馆》中'深林人不知'的上一句是：____。",
+            "《春夜洛城闻笛》中'此夜曲中闻折柳'的上一句是：____。",
+            "《逢入京使》中表现马上相逢情景的诗句是：，。",
+            "《晚春》中运用拟人手法的诗句是：，。",
+            "《泊秦淮》中'夜泊秦淮近酒家'的上一句是：____。",
+            "《贾生》中'可怜夜半虚前席'的下一句是：____。",
+            "《过松源晨炊漆公店》中揭示人生哲理的诗句是：，。",
+            "《约客》中表现蛙声阵阵的诗句是：____。",
+            "《木兰诗》中表现木兰归家喜悦的诗句是：，。",
+            "《竹里馆》中表现诗人与明月相伴的诗句是：，。",
+            "《春夜洛城闻笛》中'满洛城'的上一句是：____。",
+            "《逢入京使》中表现报平安方式的诗句是：____。",
+            "《晚春》中描写杨花飞舞的诗句是：，。",
+            "《泊秦淮》中表现忧国忧民的诗句是：，。",
+            "《贾生》中表现统治者不关心民生的诗句是：____。",
+            "《过松源晨炊漆公店》中'一山放出一山拦'的上一句是：____。",
+            "《约客》中表现夜已深的诗句是：____。",
+            "《木兰诗》中表现木兰女儿情态的诗句是：，。",
+            "《竹里馆》中表现幽静环境的诗句是：____。",
+            "《春夜洛城闻笛》中表现笛声隐约的诗句是：____。",
+            "《逢入京使》中'双袖龙钟泪不干'的上一句是：____。",
+            "《晚春》中表现珍惜光阴的诗句是：，。",
+            "《泊秦淮》中'隔江犹唱后庭花'的上一句是：____。"
+        ];
+ 
+        function randomQuestion() {
+            const questionElement = document.getElementById('question'); 
+            
+            questionElement.style.animation  = 'none';
+            setTimeout(() => {
+                questionElement.style.animation  = 'fadeIn 0.5s ease-in';
+                
+                const randomIndex = Math.floor(Math.random()  * questions.length); 
+                questionElement.textContent  = questions[randomIndex];
+            }, 10);
+        }
+ 
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit',
+                weekday: 'long'
+            };
+            document.getElementById('datetime').textContent  = now.toLocaleDateString('zh-CN',  options);
+        }
+ 
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    </script>
+</body>
+</html>
