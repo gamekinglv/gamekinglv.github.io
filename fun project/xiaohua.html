@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🤣 King's笑话集 · 夹克黑号 特供</title>
+    <style>
+        /* ---------- 好想玩元神，设置字体css ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0b0e18 0%, #1a1f2f 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, system-ui, -apple-system, sans-serif;
+            padding: 24px;
+        }
+
+        /* ---------- box nb ---------- */
+        .joke-container {
+            max-width: 820px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 56px;
+            padding: 40px 36px 48px;
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.7),
+                inset 0 1px 1px rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        /* ---------- 丑加号，见过标题吗 ---------- */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 18px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #f0e9d0, #b8c7e6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .badge {
+            margin-left: auto;
+            background: rgba(255, 215, 0, 0.12);
+            color: #f5d742;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 18px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* ---------- 格式 ---------- */
+        .joke-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ---------- 单个格式 ---------- */
+        .joke-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 28px;
+            padding: 24px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .joke-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* 左上角标签，我不要写注释啊啊啊啊啊啊啊啊啊啊 */
+        .joke-card .tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        /* 正文 */
+        .joke-text {
+            font-size: 19px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.92);
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+
+        .joke-text .highlight {
+            color: #f5d742;
+            font-weight: 500;
+        }
+
+        .joke-text .code {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 2px 12px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: #e7de56;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        /* 按钮 (互动) */
+        .punchline-btn {
+            margin-top: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(4px);
+            font-family: inherit;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .punchline-btn:hover {
+            background: rgba(255, 215, 0, 0.10);
+            border-color: rgba(255, 215, 0, 0.25);
+            color: #f5d742;
+            transform: scale(1.02);
+        }
+
+        .punchline-btn:active {
+            transform: scale(0.97);
+        }
+
+        .punchline-btn .icon {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        /* 内容 (默认隐藏) */
+        .punchline {
+            margin-top: 16px;
+            padding: 16px 20px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 16px;
+            border-left: 3px solid #f5d742;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 18px;
+            line-height: 1.5;
+            display: none;
+            animation: fadeSlide 0.4s ease forwards;
+            font-weight: 400;
+        }
+
+        .punchline.show {
+            display: block;
+        }
+
+        .punchline .emoji-big {
+            font-size: 28px;
+            margin-right: 10px;
+        }
+
+        /* 特殊 —— 自毁笑话 (纯CSS动画)  豆包nb，给我写出来了*/
+        .joke-card.self-destruct .joke-text {
+            position: relative;
+        }
+
+        .destruct-timer {
+            margin-top: 14px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .destruct-timer .bar-track {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .destruct-timer .bar-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #f5d742, #ff6b6b);
+            border-radius: 4px;
+            animation: destructCountdown 4s linear forwards;
+        }
+
+        @keyframes destructCountdown {
+            0% {
+                width: 100%;
+            }
+            100% {
+                width: 0%;
+            }
+        }
+
+        .destruct-message {
+            margin-top: 14px;
+            padding: 14px 20px;
+            background: rgba(255, 107, 107, 0.08);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 107, 107, 0.15);
+            color: #ff8a8a;
+            font-size: 17px;
+            display: none;
+            animation: fadeSlide 0.5s ease forwards;
+        }
+
+        .destruct-message.show {
+            display: block;
+        }
+
+        /* ---------- 神·究极彩蛋 ---------- */
+        .easter-egg {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            justify-content: center;
+        }
+
+        .easter-egg button {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 13px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            font-family: inherit;
+            letter-spacing: 0.5px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .easter-egg button:hover {
+            color: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .easter-output {
+            margin-top: 12px;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.2);
+            min-height: 26px;
+            transition: color 0.4s ease;
+        }
+
+        .easter-output.pop {
+            color: #f5d742;
+        }
+
+        /* ---------- 动画 ---------- */
+        @keyframes fadeSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ---------- 响应式 ---------- */
+        @media (max-width: 600px) {
+            .joke-container {
+                padding: 24px 18px 32px;
+                border-radius: 32px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+            .header .badge {
+                font-size: 11px;
+                padding: 4px 14px;
+            }
+            .joke-card {
+                padding: 18px 18px 22px;
+                border-radius: 20px;
+            }
+            .joke-text {
+                font-size: 17px;
+            }
+            .punchline {
+                font-size: 16px;
+                padding: 14px 16px;
+            }
+            .punchline-btn {
+                font-size: 13px;
+                padding: 8px 18px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .joke-container {
+                padding: 16px 12px 24px;
+            }
+            .joke-text {
+                font-size: 15px;
+            }
+            .header h1 {
+                font-size: 17px;
+            }
+        }
+
+        /* ---------- 滚动条美化 ---------- */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.10);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.20);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="joke-container" role="main">
+
+        <div class="header">
+            <h1>🧑‍💻 一万个弱智 笑话</h1>
+            <a href="https://ak.hypergryph.com/special/ad-brand-2026/bi/index.html" target="_blank" title="点击观看滚木王的珍藏">彩蛋*2</a>
+        </div>
+
+        <!-- 笑话列表 -->
+        <div class="joke-grid">
+
+            <div class="joke-card">
+                <span class="tag">我是谐音接好</span>
+                <div class="joke-text">
+                    “我认为 <span class="code">&lt;桥&gt;</span> 是世界上最温暖的东西。”
+                </div>
+                <button class="punchline-btn" onclick="togglePunchline(this)">
+                    <span class="icon">🤔</span> 显示下文
+                </button>
+                <div class="punchline">
+                    <span class="emoji-big">🧘</span>
+                    因为 <span class="highlight">桥</span> ——
+                    让所有的 <span class="highlight">河水都不再“难过”。</span> 
+                </div>
+            </div>
+
+            <div class="joke-card">
+                <span class="tag">我是哲学加号</span>
+                <div class="joke-text">
+                    “小明还有1年会死亡，目前他活着，未来他死了，他的死是因为未来吗？”
+                </div>
+                <button class="punchline-btn" onclick="togglePunchline(this)">
+                    <span class="icon">🤔</span> 显示下文
+                </button>
+                <div class="punchline">
+                    <span class="emoji-big">🕛</span>
+                    <span class="highlight">不，他的死是因为没有未来。</span> 
+                </div>
+            </div>
+
+            <div class="joke-card self-destruct">
+                <span class="tag">自毁</span>
+                <div class="joke-text">
+                    “这个笑话将在 4 秒后 <span style="color:#ff6b6b;">自我销毁</span> 💥”
+                </div>
+                <div class="destruct-timer">
+                    <span>⏳ 倒计时</span>
+                    <span class="bar-track"><span class="bar-fill"></span></span>
+                </div>
+                <div class="destruct-message" id="destructMessage">
+                    <span class="emoji-big">💀</span>
+                    <span class="highlight">笑话已自毁</span> ——
+                    但，<br />
+                    人生也会在 <span class="code">&lt;3,153,600,000&gt;</span> 年后自毁哦~
+                </div>
+            </div>
+
+            <div class="joke-card">
+                <span class="tag">我是夹克黑号</span>
+                <div class="joke-text">
+                    “一个 <span class="code">null</span> 走进酒吧，酒保说：”
+                </div>
+                <button class="punchline-btn" onclick="togglePunchline(this)">
+                    <span class="icon">🤔</span> 显示下文
+                </button>
+                <div class="punchline">
+                    <span class="emoji-big">🚫</span>
+                    “抱歉，我们这里 <span class="highlight">不接待空指针</span>。”
+                </div>
+            </div>
+
+            <div class="joke-card">
+                <span class="tag">我是减震加号</span>
+                <div class="joke-text">
+                    “<span class="code">&lt;如果&gt;</span> 一个 <span class="code">&lt;无神论主义者&gt;</span> 去美团”
+                </div>
+                <button class="punchline-btn" onclick="togglePunchline(this)">
+                    <span class="icon"></span> 显示下文
+                </button>
+                <div class="punchline">
+                    <span class="emoji-big">🤔</span>
+                    <span class="code">&lt;他&gt;</span> 不可以用立减30元神券吗 
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 彩蛋按钮 -->
+        <div class="easter-egg">
+            <button id="easterBtn" onclick="triggerEaster()">🥚 彩蛋 · 点击有惊喜</button>
+        </div>
+        <div class="easter-output" id="easterOutput"></div>
+
+    </div>
+
+    <script>
+        /**
+         * 切换笑点的显示/隐藏
+         * @param {HTMLElement} btn - 被点击的按钮
+         */
+        function togglePunchline(btn) {
+            const card = btn.closest('.joke-card');
+            const punchline = card.querySelector('.punchline');
+            if (!punchline) return;
+
+            // 切换显示
+            punchline.classList.toggle('show');
+
+            // 更新按钮文字
+            const icon = btn.querySelector('.icon');
+            const text = btn.textContent.trim();
+            if (punchline.classList.contains('show')) {
+                btn.innerHTML = `<span class="icon">🤔</span> 你不会还要收起下文吧`;
+            } else {
+            }
+        }
+
+        /**
+         * 自毁笑话 —— 在 4 秒后自动显示销毁消息
+         */
+        (function setupSelfDestruct() {
+            const card = document.querySelector('.joke-card.self-destruct');
+            if (!card) return;
+            const msg = card.querySelector('.destruct-message');
+            if (!msg) return;
+
+            // 监听动画结束 (bar-fill 动画时长 4s)
+            const bar = card.querySelector('.bar-fill');
+            if (!bar) return;
+
+            // 用 animationend 事件触发
+            bar.addEventListener('animationend', function() {
+                msg.classList.add('show');
+                // 微调：让卡片边框闪一下
+                card.style.borderColor = 'rgba(255,107,107,0.25)';
+                setTimeout(() => {
+                    card.style.borderColor = '';
+                }, 800);
+            });
+
+            // 如果用户点击卡片也能手动触发 (辅助)
+            card.addEventListener('click', function(e) {
+                // 如果点击的是按钮，不干扰
+                if (e.target.closest('.punchline-btn')) return;
+                if (!msg.classList.contains('show')) {
+                    msg.classList.add('show');
+                    // 也触发一下进度条动画重置？为了体验，不重置。
+                }
+            });
+        })();
+
+        /**
+         * 彩蛋 
+         */
+        function triggerEaster() {
+            const output = document.getElementById('easterOutput');
+            if (!output) return;
+
+            const messages = [
+                '🐣 你发现了彩蛋！',
+                '🧙 明日方舟nb',
+                '💡 悄悄告诉你：点的是g................ameking的弟弟',
+                '🚀 你点了一次彩蛋',
+                '🎯 恭喜！你获得了「点彩蛋小能手」称号。',
+                '🤖 你是广告机器人吗，转人工'
+            ];
+
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            output.textContent = randomMsg;
+            output.classList.add('pop');
+
+            // 闪烁后移除效果
+            clearTimeout(output._timer);
+            output._timer = setTimeout(() => {
+                output.classList.remove('pop');
+            }, 2000);
+
+            // 按钮震动反馈
+            const btn = document.getElementById('easterBtn');
+            if (btn) {
+                btn.style.transform = 'scale(0.92)';
+                setTimeout(() => { btn.style.transform = ''; }, 150);
+            }
+        }
+
+        // 控制台彩蛋，deepseek帮我写的这个菜单，hh
+        console.log('%c 🥚 你找到了控制台彩蛋！', 'font-size:20px; font-weight:bold; color:#f5d742;');
+        console.log('%c 这个页面所有的笑话都是 "HTML" 写的，包括这个控制台消息。', 'font-size:14px; color:#b8c7e6;');
+        console.log('%c 👀 试试点击页面里的 "彩蛋" 按钮。', 'font-size:14px; color:#aaa;');
+    </script>
+
+</body>
+</html>
